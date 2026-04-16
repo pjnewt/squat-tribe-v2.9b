@@ -1,0 +1,438 @@
+:root {
+  --bg: #0A0A0A;
+  --panel: #141414;
+  --gold: #FFD700;
+  --white: #F5F5F7;
+  --grey: #3A3A3C;
+  --muted: #B3B3B8;
+  --danger: #FF3B30;
+  --green: #30d158;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--white);
+  font-family: Inter, Arial, sans-serif;
+}
+
+.app-shell {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 18px 14px 28px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.app-header p {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+.top-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 22px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.inset-card {
+  background: #101010;
+  margin-top: 0;
+}
+
+#coachBox {
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.pill {
+  border: none;
+  border-radius: 999px;
+  min-height: 48px;
+  padding: 0 16px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pill.primary {
+  background: var(--gold);
+  color: #000;
+}
+
+.pill.secondary {
+  background: var(--grey);
+  color: var(--white);
+}
+
+.back-link {
+  background: transparent;
+  color: var(--gold);
+  border: none;
+  padding: 0;
+  font-size: 15px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.cycle-card {
+  margin-bottom: 14px;
+}
+
+.cycle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.cycle-badge {
+  background: rgba(255, 215, 0, 0.14);
+  color: var(--gold);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.cycle-track {
+  width: 100%;
+  height: 10px;
+  background: #222;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.cycle-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--gold);
+  transition: width 0.25s ease;
+}
+
+.pentagon-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.pentagon-svg {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
+.pentagon-outline {
+  fill: none;
+  stroke: rgba(255, 215, 0, 0.4);
+  stroke-width: 3;
+}
+
+.pentagon-point {
+  cursor: pointer;
+}
+
+.pentagon-dot {
+  fill: var(--grey);
+}
+
+.pentagon-dot.active {
+  fill: var(--gold);
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.45));
+}
+
+.pentagon-dot.complete {
+  fill: var(--green);
+}
+
+.pentagon-dot.upcoming {
+  fill: var(--grey);
+}
+
+.pentagon-label {
+  fill: var(--white);
+  font-size: 11px;
+  text-anchor: middle;
+}
+
+.pentagon-center-label {
+  fill: var(--muted);
+  font-size: 13px;
+}
+
+.pentagon-center-value {
+  fill: var(--gold);
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.exercise-hero {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 14px;
+  align-items: center;
+}
+
+.exercise-meta h2 {
+  margin: 0 0 8px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.trend-line {
+  font-size: 13px;
+  color: var(--gold);
+  margin-top: 6px;
+}
+
+.progress-line {
+  font-size: 13px;
+  color: var(--white);
+  margin-top: 6px;
+}
+
+.exercise-figure {
+  width: 100%;
+  min-height: 120px;
+  height: 120px;
+  border: 1px solid rgba(255, 215, 0, 0.18);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 14px;
+  text-align: center;
+  padding: 10px;
+  overflow: hidden;
+  background: #101010;
+}
+
+.exercise-figure.large {
+  min-height: 160px;
+  height: 160px;
+  margin-bottom: 14px;
+}
+
+.exercise-art-img {
+  max-width: 90px;
+  max-height: 90px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.summary-art-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.summary-art-wrap .exercise-art-img {
+  max-width: 72px;
+  max-height: 72px;
+}
+
+.summary-block {
+  margin: 14px 0;
+  text-align: left;
+}
+
+.summary-title {
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.summary-content {
+  line-height: 1.6;
+}
+
+.summary-section {
+  margin-bottom: 14px;
+}
+
+.summary-heading {
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.field span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  min-height: 46px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #0f0f10;
+  color: var(--white);
+  padding: 0 12px;
+  font-size: 16px;
+}
+
+.phase-box {
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 18px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.phase-label {
+  color: var(--gold);
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.metric-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.metric-row-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.metric {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 14px;
+  padding: 10px;
+}
+
+.metric-name {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.metric-value {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.button-stack {
+  display: grid;
+  gap: 10px;
+}
+
+.history-list {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.history-card {
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 16px;
+  padding: 12px;
+  text-align: left;
+}
+
+.history-title {
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.history-sub {
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.info-copy {
+  text-align: left;
+  line-height: 1.55;
+}
+
+.symmetry-wrap {
+  margin: 10px 0;
+}
+
+.symmetry-label {
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.symmetry-bar {
+  position: relative;
+  display: flex;
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #222;
+  margin-bottom: 6px;
+}
+
+.symmetry-left {
+  background: var(--gold);
+}
+
+.symmetry-right {
+  background: var(--grey);
+}
+
+.symmetry-mid {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--white);
+  transform: translateX(-50%);
+}
+
+.symmetry-values {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.insight-box {
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.18);
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
