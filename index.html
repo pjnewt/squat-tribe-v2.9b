@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Squat Tribe</title>
+  <meta name="theme-color" content="#0A0A0A" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <h1>Squat Tribe</h1>
+      <p>Adaptive squat training protocol</p>
+    </header>
+
+    <main>
+      <section id="screen-home" class="screen active">
+        <div class="top-actions">
+          <button class="pill secondary" id="btnInfo">Info</button>
+          <button class="pill secondary" id="btnProfile">Profile</button>
+          <button class="pill secondary" id="btnHistory">History</button>
+        </div>
+
+        <div class="card" id="installCard" style="display:none;">
+          <div class="summary-title">Install App</div>
+          <div class="summary-content" style="margin-bottom:12px;">
+            Add Squat Tribe to your home screen for faster access and a more app-like experience.
+          </div>
+          <button class="pill primary" id="btnInstallApp">Install App</button>
+          <div id="installStatus" class="muted" style="margin-top:10px;"></div>
+        </div>
+
+        <div class="card" id="installHelpCard" style="display:none;">
+          <div class="summary-title">Install Help</div>
+          <div class="summary-content" id="installHelpText">
+            Open the browser menu and choose <strong>Add to Home screen</strong> or <strong>Install app</strong>.
+          </div>
+          <div id="installHelpStatus" class="muted" style="margin-top:10px;"></div>
+        </div>
+
+        <div class="card" id="updateCard" style="display:none;">
+          <div class="summary-title">Update Available</div>
+          <div class="summary-content" style="margin-bottom:12px;">
+            A newer version of Squat Tribe is ready.
+          </div>
+          <button class="pill primary" id="btnRefreshApp">Refresh App</button>
+        </div>
+
+        <div class="card" id="offlineCard">
+          <div class="summary-title">Offline Status</div>
+          <div class="summary-content" id="offlineStatusText">Checking offline support…</div>
+        </div>
+
+        <div class="card cycle-card">
+          <div class="cycle-row">
+            <div>
+              <div class="summary-title">Cycle Progress</div>
+              <div id="cycleProgressText" class="summary-content">0 / 5 complete</div>
+            </div>
+            <div class="cycle-badge" id="cycleBadge">Day 1</div>
+          </div>
+          <div class="cycle-track">
+            <div class="cycle-fill" id="cycleFill"></div>
+          </div>
+        </div>
+
+        <div class="card pentagon-card">
+          <div class="pentagon-wrap">
+            <svg viewBox="0 0 320 320" class="pentagon-svg" aria-label="Exercise pentagon">
+              <polygon points="160,35 275,118 230,255 90,255 45,118" class="pentagon-outline"></polygon>
+              <g id="pentagonPoints"></g>
+              <text x="160" y="145" text-anchor="middle" class="pentagon-center-label">Avg TRDS</text>
+              <text x="160" y="178" text-anchor="middle" class="pentagon-center-value" id="avgTrdsValue">0.00</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="card selected-card">
+          <div class="exercise-hero">
+            <div class="exercise-figure" id="selectedExerciseImage"></div>
+            <div class="exercise-meta">
+              <h2 id="selectedExerciseName">Back Squat</h2>
+              <p id="selectedExerciseStatus" class="muted"></p>
+              <div id="selectedExerciseTrend" class="trend-line"></div>
+              <div id="selectedExerciseProgress" class="progress-line"></div>
+            </div>
+          </div>
+
+          <div class="summary-block">
+            <div class="summary-title">Last session</div>
+            <div id="lastSessionSummary" class="summary-content">No sessions yet.</div>
+          </div>
+
+          <button class="pill primary" id="btnStartExercise">Start Exercise</button>
+        </div>
+      </section>
+
+      <section id="screen-info" class="screen">
+        <div class="card text-card">
+          <button class="back-link" data-back="home">← Back</button>
+          <h2>Info</h2>
+          <div class="info-copy">
+            <p>Squat Tribe is a structured, data-driven training app designed to help you build lower-body strength using five squat variations. It guides each session automatically, tracks performance, and adapts to fatigue.</p>
+
+            <p><strong>Protocol:</strong><br>
+            1. Back Squat<br>
+            2. Bulgarian Split Squat<br>
+            3. Front Squat<br>
+            4. Side Step Squat<br>
+            5. Sumo Squat</p>
+
+            <p><strong>Workout structure:</strong><br>
+            Anchor set to fatigue, then repeated Myo sets using a fixed target based on 20% of Anchor reps.</p>
+
+            <p><strong>Unilateral logic:</strong><br>
+            Bulgarian Squat and Side Step start with the weaker side. The second side matches reps and sets exactly. Only time differs.</p>
+
+            <p><strong>Metrics:</strong><br>
+            Mechanical Load Score (MLS) = Load × Reps<br>
+            Total Reps Density Score (TRDS) = MLS ÷ Time<br><br>
+            Load is calculated as:<br>
+            Bilateral = external load + (bodyweight × 0.70)<br>
+            Unilateral = external load + (bodyweight × 0.85)</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-profile" class="screen">
+        <div class="card">
+          <button class="back-link" data-back="home">← Back</button>
+          <h2>Profile</h2>
+
+          <label class="field">
+            <span>Body Weight (kg)</span>
+            <input id="profileBodyweight" type="number" min="20" max="300" step="0.1" />
+          </label>
+
+          <label class="field">
+            <span>Sensitivity</span>
+            <select id="profileSensitivity">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Coach Explanation Mode</span>
+            <select id="profileCoach">
+              <option value="off">Off</option>
+              <option value="on">On</option>
+            </select>
+          </label>
+
+          <button class="pill primary" id="btnSaveProfile">Save Profile</button>
+        </div>
+      </section>
+
+      <section id="screen-history" class="screen">
+        <div class="card">
+          <button class="back-link" data-back="home">← Back</button>
+          <h2>History</h2>
+
+          <label class="field">
+            <span>Filter by Exercise</span>
+            <select id="historyFilter"></select>
+          </label>
+
+          <div class="button-stack" style="margin-bottom:14px;">
+            <button class="pill secondary" id="btnExportHistory">Export Data (JSON)</button>
+            <button class="pill secondary" id="btnDeleteExerciseHistory">Delete Selected Exercise History</button>
+            <button class="pill secondary" id="btnClearHistory">Clear All History</button>
+          </div>
+
+          <div id="historyList" class="history-list"></div>
+        </div>
+      </section>
+
+      <section id="screen-session" class="screen">
+        <div class="card">
+          <button class="back-link" data-back="home">← Home</button>
+
+          <div class="session-head">
+            <h2 id="sessionExerciseName">Back Squat</h2>
+            <div class="muted" id="sessionSupportText">Bilateral session</div>
+          </div>
+
+          <div class="exercise-figure large" id="sessionExerciseImage"></div>
+
+          <div class="card inset-card">
+            <div class="summary-title">Previous session</div>
+            <div id="previousExerciseSummary" class="summary-content">No previous data.</div>
+          </div>
+
+          <div class="card inset-card">
+            <div class="summary-title">Comparison</div>
+            <div id="comparisonSummary" class="summary-content">No previous comparison available.</div>
+          </div>
+
+          <div class="field">
+            <span>Body Weight (kg)</span>
+            <input id="sessionBodyweight" type="number" min="20" max="300" step="0.1" />
+          </div>
+
+          <div class="field">
+            <span>External Weight (kg)</span>
+            <input id="sessionExternalWeight" type="number" min="0" max="300" step="0.5" value="0" />
+          </div>
+
+          <div id="weakerSideWrap" class="field" style="display:none;">
+            <span>Weaker Side</span>
+            <select id="weakerSide">
+              <option value="left">Left</option>
+              <option value="right">Right</option>
+            </select>
+          </div>
+
+          <div class="phase-box">
+            <div class="phase-label" id="phase">READY</div>
+            <div class="metric-row metric-row-4">
+              <div class="metric">
+                <div class="metric-name">Reps</div>
+                <div class="metric-value" id="reps">0</div>
+              </div>
+              <div class="metric">
+                <div class="metric-name">Time</div>
+                <div class="metric-value" id="time">0</div>
+              </div>
+              <div class="metric">
+                <div class="metric-name">Target</div>
+                <div class="metric-value" id="target">-</div>
+              </div>
+              <div class="metric">
+                <div class="metric-name">Rest</div>
+                <div class="metric-value" id="rest">-</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card inset-card" id="coachBox" style="display:none;">
+            <div class="summary-title">Coach</div>
+            <div id="coachText" class="summary-content"></div>
+          </div>
+
+          <div class="button-stack">
+            <button class="pill primary" id="btnStartAnchor">Start Anchor Set</button>
+            <button class="pill secondary" id="btnStopSet">Stop</button>
+            <button class="pill secondary" id="btnSaveSet">Save Set</button>
+            <button class="pill secondary" id="btnStartMyo" style="display:none;">Start Myo</button>
+            <button class="pill primary" id="btnFinishSession">Finish Session</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen-summary" class="screen">
+        <div class="card">
+          <button class="back-link" data-back="home">← Home</button>
+          <h2>Session Summary</h2>
+          <div id="summaryContent" class="summary-content"></div>
+          <div class="insight-box" id="sessionInsightBox"></div>
+          <div class="card inset-card">
+            <div class="summary-title">Comparison to Previous</div>
+            <div id="summaryComparisonBox" class="summary-content">No previous comparison available.</div>
+          </div>
+          <div class="button-stack">
+            <button class="pill primary" id="btnSaveSessionChoice">Save Session</button>
+            <button class="pill secondary" id="btnDeleteSessionChoice">Delete Session</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
